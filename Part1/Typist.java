@@ -18,7 +18,12 @@ public class Typist
     // A third tracks HOW MANY turns of burnout remain (not just whether they are burnt out).
     // The remaining three should be fairly obvious.
 
-
+    String name;
+    char symbol;
+    int progress;
+    boolean burntOut;
+    int numBurnoutRemaining;
+    double accuracy;
 
 
     // Constructor of class Typist
