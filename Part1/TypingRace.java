@@ -21,7 +21,7 @@ public class TypingRace
     // Accuracy thresholds for mistype and burnout events
     // (Ty tuned these values "by feel". They may need adjustment.)
     private static final double MISTYPE_BASE_CHANCE = 0.3;
-    private static final int    SLIDE_BACK_AMOUNT   = 2;
+    private static final int    SLIDE_BACK_AMOUNT   = 1;
     private static final int    BURNOUT_DURATION     = 3;
 
     /**
@@ -269,5 +269,18 @@ public class TypingRace
             System.out.print(aChar);
             i = i + 1;
         }
+    }
+
+    public static void main (String []args){
+        TypingRace race = new TypingRace(20);
+        Typist typist1 = new Typist ('①', "TURBOFINGERS", 0.85);
+        Typist typist2 = new Typist ('②', "QWERTY_QUEEN", 0.60);
+        Typist typist3 = new Typist ('③', "HUNT_N_PECK", 0.40);
+
+        race.addTypist(typist1, 1);
+        race.addTypist(typist2, 2);
+        race.addTypist(typist3, 3);
+
+        race.startRace();
     }
 }
