@@ -83,6 +83,8 @@ public class TypingRace
         seat2Typist.resetToStart();
         seat3Typist.resetToStart();
 
+        Typist winner = null;
+
         while (!finished)
         {
             // Advance each typist by one turn
@@ -97,6 +99,15 @@ public class TypingRace
             if ( raceFinishedBy(seat1Typist) || raceFinishedBy(seat2Typist) || raceFinishedBy(seat3Typist) )
             {
                 finished = true;
+                if (raceFinishedBy(seat1Typist)){
+                    winner = seat1Typist;
+                }
+                else if (raceFinishedBy(seat2Typist)){
+                    winner = seat2Typist;
+                }
+                else{
+                    winner = seat3Typist;
+                }
             }
 
             // Wait 200ms between turns so the animation is visible
@@ -106,6 +117,7 @@ public class TypingRace
         }
 
         // TODO (Task 2a): Print the winner's name here
+        System.out.println("Winner: " + winner.getName());
     }
 
     /**
