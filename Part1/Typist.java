@@ -67,7 +67,13 @@ public class Typist
      */
     public void recoverFromBurnout()
     {
-
+        if (burntOut){
+            numBurnoutRemaining = numBurnoutRemaining - 1;
+            if (numBurnoutRemaining <= 0){
+                burntOut = false;
+                numBurnoutRemaining = 0;
+            }
+        }
     }
 
     /**
@@ -129,7 +135,9 @@ public class Typist
      */
     public void resetToStart()
     {
-
+        progress = 0;
+        burntOut = false;
+        numBurnoutRemaining = 0;
     }
 
     /**
@@ -159,7 +167,10 @@ public class Typist
      */
     public void slideBack(int amount)
     {
-
+        progress = progress - amount;
+        if (progress < 0){
+            progress = 0;
+        }
     }
 
     /**
