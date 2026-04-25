@@ -37,7 +37,12 @@ public class Typist
      */
     public Typist(char typistSymbol, String typistName, double typistAccuracy)
     {
-
+        name = typistName;
+        symbol = typistSymbol;
+        accuracy = typistAccuracy;
+        progress = 0;
+        burntOut = false;
+        numBurnoutRemaining = 0;
     }
 
 
