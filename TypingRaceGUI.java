@@ -5,7 +5,7 @@ public class TypingRaceGUI {
 
         JFrame frame = new JFrame("Typing Race Simulator");
 
-        frame.setSize(400, 300);
+        frame.setSize(500, 200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel panel = new JPanel();
@@ -15,7 +15,7 @@ public class TypingRaceGUI {
         panel.add(startButton);
 
         frame.setVisible(true);
-        }    
+        }
 
         public static void main(String [] args){
             startRaceGUI();
