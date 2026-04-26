@@ -18,6 +18,11 @@ public class TypingRace
     private Typist seat2Typist;
     private Typist seat3Typist;
 
+    
+    private boolean t1Mistyped = false;
+    private boolean t2Mistyped = false;
+    private boolean t3Mistyped = false;
+
     // Accuracy thresholds for mistype and burnout events
     // (Ty tuned these values "by feel". They may need adjustment.)
     private static final double MISTYPE_BASE_CHANCE = 0.3;
@@ -152,6 +157,16 @@ public class TypingRace
         if (Math.random() < theTypist.getAccuracy() * MISTYPE_BASE_CHANCE)
         {
             theTypist.slideBack(SLIDE_BACK_AMOUNT);
+            if (theTypist == seat1Typist){
+                t1Mistyped = true;
+            }
+            else if (theTypist == seat2Typist){
+                t2Mistyped = true;
+            }
+            else if (theTypist == seat3Typist){
+                t3Mistyped = true;
+            }
+
         }
 
         // Burnout check — pushing too hard increases burnout risk
@@ -235,6 +250,18 @@ public class TypingRace
         {
             System.out.print('~');
             spacesAfter--; // symbol + ~ together take two characters
+        } else if (theTypist == seat1Typist && t1Mistyped) {
+            System.out.print('<');
+            spacesAfter--;
+            t1Mistyped = false;
+        } else if (theTypist == seat2Typist && t2Mistyped) {
+            System.out.print('<');
+            spacesAfter--;
+            t2Mistyped = false;
+        } else if (theTypist == seat3Typist && t3Mistyped) {
+            System.out.print('<');
+            spacesAfter--;
+            t3Mistyped = false;
         }
 
         multiplePrint(' ', spacesAfter);
@@ -271,6 +298,7 @@ public class TypingRace
         }
     }
 
+    
     public static void main (String []args){
         TypingRace race = new TypingRace(20);
         Typist typist1 = new Typist ('①', "TURBOFINGERS", 0.85);
@@ -283,4 +311,5 @@ public class TypingRace
 
         race.startRace();
     }
+    
 }
