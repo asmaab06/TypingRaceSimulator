@@ -1,5 +1,3 @@
-package Part1;
-
 /**
  * Write a description of class Typist here.
  *
