@@ -160,6 +160,25 @@ public class TypingRaceGUI {
                 keyboardType.add(keyboardTypeComboBox);
                 mainPanel.add(keyboardType);
                 
+
+                //User symbol panel
+                JPanel userSymbol = new JPanel();
+                userSymbol.setLayout(new GridBagLayout());
+                JLabel userSymbolLabel = new JLabel("User Symbol: ");
+                JTextField userSymbolField = new JTextField(6);
+                userSymbol.add(userSymbolLabel);
+                userSymbol.add(userSymbolField);
+                mainPanel.add(userSymbol);
+
+                //User colour panel
+                JPanel userColour = new JPanel();
+                userColour.setLayout(new GridBagLayout());
+                JLabel userColourLabel = new JLabel("User Colour: ");
+                String [] options3 = {"Red", "Blue", "Green", "Yellow"};
+                JComboBox<String> userColourField = new JComboBox<>(options3);
+                userColour.add(userColourLabel);
+                userColour.add(userColourField);
+                mainPanel.add(userColour);
             }
             
             typistFrame.add(mainPanel);
