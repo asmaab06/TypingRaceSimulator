@@ -16,10 +16,10 @@ public class TypingRaceGUI {
         JPanel panel = new JPanel();
         frame.add(panel);
 
-        JButton startButton = new JButton("Start Race");
-        panel.add(startButton);
+        JButton newButton = new JButton("New Race");
+        panel.add(newButton);
 
-        startButton.addActionListener(e -> {
+        newButton.addActionListener(e -> {
             chooseConfiguration();
         });
 
@@ -34,15 +34,95 @@ public class TypingRaceGUI {
 
             newFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+            JPanel mainPanel = new JPanel();
+            mainPanel.setLayout(new GridLayout(8, 1));
+
             //Panel 1
             JPanel panel1 = new JPanel();
-            panel1.setLayout(new FlowLayout(FlowLayout.CENTER));
+            panel1.setLayout(new GridBagLayout());
+            panel1.setBackground(Color.LIGHT_GRAY);
             JLabel configLabel = new JLabel("New Race Configuration");
             panel1.add(configLabel);
-            newFrame.add(panel1);
+            mainPanel.add(panel1);
 
+            //Panel 2
+            JPanel panel2 = new JPanel();
+            panel2.setLayout(new GridBagLayout());
+            JLabel config1 = new JLabel("Passage Selection: ");
+            String[] options = {"Short", "Medium", "Long"};
+            JComboBox<String> configComboBox = new JComboBox<>(options);
+            String passageLength = (String) configComboBox.getSelectedItem();
+            panel2.add(config1);
+            panel2.add(configComboBox);
+            mainPanel.add(panel2);
+
+            //Panel 3
+            JPanel panel3 = new JPanel();
+            panel3.setLayout(new GridBagLayout());
+            JLabel config2 = new JLabel("Seat count: ");
+            JTextField seatCountField = new JTextField(6);
+            panel3.add(config2);
+            panel3.add(seatCountField);
+            mainPanel.add(panel3);
+
+            //Panel 4
+            JPanel panel4 = new JPanel();
+            panel4.setLayout(new GridBagLayout());
+            panel4.setBackground(Color.LIGHT_GRAY);
+            JLabel configLabel2 = new JLabel("Difficulty Modifiers:");
+            panel4.add(configLabel2);
+            mainPanel.add(panel4);
+
+            //Panel 5
+            JPanel panel5 = new JPanel();
+            panel5.setLayout(new GridBagLayout());
+            JLabel config3 = new JLabel("Autocorrect On/Off: ");
+            String[] options2 = {"On", "Off"};
+            JComboBox<String> configComboBox2 = new JComboBox<>(options2);
+            String autocorrect = (String) configComboBox2.getSelectedItem();
+            panel5.add(config3);
+            panel5.add(configComboBox2);
+            mainPanel.add(panel5);
+
+            //Panel 6
+            JPanel panel6 = new JPanel();
+            panel6.setLayout(new GridBagLayout());
+            JLabel config4 = new JLabel("Caffeine Mode: ");
+            String[] options3 = {"On", "Off"};
+            JComboBox<String> configComboBox3 = new JComboBox<>(options3);
+            String caffeineMode = (String) configComboBox3.getSelectedItem();
+            panel6.add(configComboBox3);
+            mainPanel.add(panel6);
+
+            //Panel 7
+            JPanel panel7 = new JPanel();
+            panel7.setLayout(new GridBagLayout());
+            JLabel config5 = new JLabel("Night Mode: ");
+            String[] options4 = {"On", "Off"};
+            JComboBox<String> configComboBox4 = new JComboBox<>(options4);
+            String nightMode = (String) configComboBox4.getSelectedItem();
+            panel7.add(config5);
+            panel7.add(configComboBox4);
+            mainPanel.add(panel7);
+
+            //Panel 8
+            JPanel panel8 = new JPanel();
+            panel8.setLayout(new GridBagLayout());
+            JButton startButton = new JButton("Start Race");
+            panel8.add(startButton);
+            mainPanel.add(panel8);
+
+            startButton.addActionListener(e -> {
+                String numPlayers = seatCountField.getText();
+                customiseTypists(passageLength, numPlayers, autocorrect, caffeineMode, nightMode);
+            });
+
+            newFrame.add(mainPanel);
 
             newFrame.setVisible(true);
+        }
+
+        public static void customiseTypists(String passageLength, String numPlayers, String autocorrect, String caffeineMode, String nightMode){
         }
 
         public static void main(String [] args){
