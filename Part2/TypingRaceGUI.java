@@ -108,11 +108,11 @@ public class TypingRaceGUI {
             //Panel 8
             JPanel panel8 = new JPanel();
             panel8.setLayout(new GridBagLayout());
-            JButton startButton = new JButton("Start Race");
-            panel8.add(startButton);
+            JButton customiseButton = new JButton("Customise Typists");
+            panel8.add(customiseButton);
             mainPanel.add(panel8);
 
-            startButton.addActionListener(e -> {
+            customiseButton.addActionListener(e -> {
                 String numPlayers = seatCountField.getText();
                 customiseTypists(passageLength, numPlayers, autocorrect, caffeineMode, nightMode);
             });
@@ -128,7 +128,7 @@ public class TypingRaceGUI {
             typistFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
             JPanel mainPanel = new JPanel();
-            int numPanels = Integer.parseInt(numPlayers) * 7;
+            int numPanels = Integer.parseInt(numPlayers) * 6;
             numPanels = numPanels + 1;
             mainPanel.setLayout(new GridLayout(numPanels, 1));
 
@@ -179,12 +179,53 @@ public class TypingRaceGUI {
                 userColour.add(userColourLabel);
                 userColour.add(userColourField);
                 mainPanel.add(userColour);
+
+                //Accessories Panel
+                JPanel accessories = new JPanel();
+                accessories.setLayout(new GridBagLayout());
+                JLabel accessoriesLabel = new JLabel("Accessories: ");
+                String [] options4 = {"Wrist Support", "Energy Drink", "Noise-Cancelling Headphones"};
+                JComboBox<String> accessoriesComboBox = new JComboBox<>(options4);
+                accessories.add(accessoriesLabel);
+                accessories.add(accessoriesComboBox);
+                mainPanel.add(accessories);
+
             }
             
+            //Start Button
+            JPanel startPanel = new JPanel();
+            startPanel.setLayout(new GridBagLayout());
+            JButton startButton = new JButton("Start Race");
+            startPanel.add(startButton);
+            mainPanel.add(startPanel);
+
+            startButton.addActionListener(e -> {
+                startRace();
+            });
+
             typistFrame.add(mainPanel);
 
             typistFrame.setVisible(true);
         }
+
+        public static void startRace(){
+            JFrame raceFrame = new JFrame("Typing Race");
+            raceFrame.setSize(400, 300);
+            raceFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+            JPanel mainPanel = new JPanel();
+
+            //Title Panel
+            JPanel titlePanel = new JPanel();
+            titlePanel.setLayout(new GridBagLayout());
+            JLabel titleLabel = new JLabel("Typing Race");
+            titlePanel.add(titleLabel);
+            mainPanel.add(titlePanel);
+
+            raceFrame.add(mainPanel);
+            raceFrame.setVisible(true);
+        }
+
 
         public static void main(String [] args){
             startRaceGUI();
