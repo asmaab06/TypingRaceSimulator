@@ -123,6 +123,39 @@ public class TypingRaceGUI {
         }
 
         public static void customiseTypists(String passageLength, String numPlayers, String autocorrect, String caffeineMode, String nightMode){
+            JFrame typistFrame = new JFrame("Typing Race Simulator");
+            typistFrame.setSize(400, 300);
+            typistFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            System.out.println(passageLength + ", " + numPlayers + ", " + autocorrect + ", " + caffeineMode + ", " + nightMode);
+
+            JPanel mainPanel = new JPanel();
+            int numPanels = Integer.parseInt(numPlayers) * 6;
+            mainPanel.setLayout(new GridLayout(numPanels, 1));
+
+            for (int i = 0; i < Integer.parseInt(numPlayers); i++){
+                JPanel typistPanel = new JPanel();
+                typistPanel.setLayout(new GridBagLayout());
+                JLabel typistLabel = new JLabel("Typist " + (i + 1));
+                typistPanel.setBackground(Color.LIGHT_GRAY);
+                typistPanel.add(typistLabel);
+                mainPanel.add(typistPanel);
+
+                //Typing Style Panel
+                JPanel typingStyle = new JPanel();
+                typingStyle.setLayout(new GridBagLayout());
+                JLabel typingStyleLabel = new JLabel("Typing Style: ");
+                String [] options = {"Touch Typist", "Hunt and Peck", "Phone Thumbs", "Voice-to-Text"};
+                JComboBox<String> typingStyleComboBox = new JComboBox<>(options);
+                typingStyle.add(typingStyleLabel);
+                typingStyle.add(typingStyleComboBox);
+                mainPanel.add(typingStyle);
+
+                
+            }
+            
+            typistFrame.add(mainPanel);
+
+            typistFrame.setVisible(true);
         }
 
         public static void main(String [] args){
