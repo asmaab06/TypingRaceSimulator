@@ -126,10 +126,10 @@ public class TypingRaceGUI {
             JFrame typistFrame = new JFrame("Typing Race Simulator");
             typistFrame.setSize(400, 300);
             typistFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            System.out.println(passageLength + ", " + numPlayers + ", " + autocorrect + ", " + caffeineMode + ", " + nightMode);
 
             JPanel mainPanel = new JPanel();
-            int numPanels = Integer.parseInt(numPlayers) * 6;
+            int numPanels = Integer.parseInt(numPlayers) * 7;
+            numPanels = numPanels + 1;
             mainPanel.setLayout(new GridLayout(numPanels, 1));
 
             for (int i = 0; i < Integer.parseInt(numPlayers); i++){
@@ -150,6 +150,15 @@ public class TypingRaceGUI {
                 typingStyle.add(typingStyleComboBox);
                 mainPanel.add(typingStyle);
 
+                //Keyboard Type Panel
+                JPanel keyboardType = new JPanel();
+                keyboardType.setLayout(new GridBagLayout());
+                JLabel keyboardTypeLabel = new JLabel("Keyboard Type: ");
+                String [] options2 = {"Mechanical", "Membrane", "Touchscreen", "Stenography"};
+                JComboBox<String> keyboardTypeComboBox = new JComboBox<>(options2);
+                keyboardType.add(keyboardTypeLabel);
+                keyboardType.add(keyboardTypeComboBox);
+                mainPanel.add(keyboardType);
                 
             }
             
