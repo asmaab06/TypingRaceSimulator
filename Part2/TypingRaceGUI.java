@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.concurrent.TimeUnit;
 import javax.swing.*;
 
 
@@ -91,6 +92,7 @@ public class TypingRaceGUI {
             String[] options3 = {"On", "Off"};
             JComboBox<String> configComboBox3 = new JComboBox<>(options3);
             String caffeineMode = (String) configComboBox3.getSelectedItem();
+            panel6.add(config4);
             panel6.add(configComboBox3);
             mainPanel.add(panel6);
 
@@ -123,6 +125,7 @@ public class TypingRaceGUI {
         }
 
         public static void customiseTypists(String passageLength, String numPlayers, String autocorrect, String caffeineMode, String nightMode){
+            
             JFrame typistFrame = new JFrame("Typing Race Simulator");
             typistFrame.setSize(400, 300);
             typistFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -132,7 +135,17 @@ public class TypingRaceGUI {
             numPanels = numPanels + 1;
             mainPanel.setLayout(new GridLayout(numPanels, 1));
 
+
+            String[] symbols = new String[Integer.parseInt(numPlayers)];
+            String[] typingStyles = new String[Integer.parseInt(numPlayers)];
+            String[] keyboardTypes = new String[Integer.parseInt(numPlayers)];
+            String[] userColours = new String[Integer.parseInt(numPlayers)];
+            String[] accessoriesList = new String[Integer.parseInt(numPlayers)];
+
+
+
             for (int i = 0; i < Integer.parseInt(numPlayers); i++){
+                System.out.println(i);
                 JPanel typistPanel = new JPanel();
                 typistPanel.setLayout(new GridBagLayout());
                 JLabel typistLabel = new JLabel("Typist " + (i + 1));
@@ -146,6 +159,7 @@ public class TypingRaceGUI {
                 JLabel typingStyleLabel = new JLabel("Typing Style: ");
                 String [] options = {"Touch Typist", "Hunt and Peck", "Phone Thumbs", "Voice-to-Text"};
                 JComboBox<String> typingStyleComboBox = new JComboBox<>(options);
+                typingStyles[i] = (String) typingStyleComboBox.getSelectedItem();
                 typingStyle.add(typingStyleLabel);
                 typingStyle.add(typingStyleComboBox);
                 mainPanel.add(typingStyle);
@@ -156,19 +170,13 @@ public class TypingRaceGUI {
                 JLabel keyboardTypeLabel = new JLabel("Keyboard Type: ");
                 String [] options2 = {"Mechanical", "Membrane", "Touchscreen", "Stenography"};
                 JComboBox<String> keyboardTypeComboBox = new JComboBox<>(options2);
+                keyboardTypes[i] = (String) keyboardTypeComboBox.getSelectedItem();
                 keyboardType.add(keyboardTypeLabel);
                 keyboardType.add(keyboardTypeComboBox);
                 mainPanel.add(keyboardType);
                 
 
-                //User symbol panel
-                JPanel userSymbol = new JPanel();
-                userSymbol.setLayout(new GridBagLayout());
-                JLabel userSymbolLabel = new JLabel("User Symbol: ");
-                JTextField userSymbolField = new JTextField(6);
-                userSymbol.add(userSymbolLabel);
-                userSymbol.add(userSymbolField);
-                mainPanel.add(userSymbol);
+                
 
                 //User colour panel
                 JPanel userColour = new JPanel();
@@ -176,6 +184,7 @@ public class TypingRaceGUI {
                 JLabel userColourLabel = new JLabel("User Colour: ");
                 String [] options3 = {"Red", "Blue", "Green", "Yellow"};
                 JComboBox<String> userColourField = new JComboBox<>(options3);
+                userColours[i] = (String) userColourField.getSelectedItem();
                 userColour.add(userColourLabel);
                 userColour.add(userColourField);
                 mainPanel.add(userColour);
@@ -186,11 +195,14 @@ public class TypingRaceGUI {
                 JLabel accessoriesLabel = new JLabel("Accessories: ");
                 String [] options4 = {"Wrist Support", "Energy Drink", "Noise-Cancelling Headphones"};
                 JComboBox<String> accessoriesComboBox = new JComboBox<>(options4);
+                accessoriesList[i] = (String) accessoriesComboBox.getSelectedItem();
                 accessories.add(accessoriesLabel);
                 accessories.add(accessoriesComboBox);
                 mainPanel.add(accessories);
 
             }
+
+            System.out.println(symbols[0]);
             
             //Start Button
             JPanel startPanel = new JPanel();
@@ -200,7 +212,9 @@ public class TypingRaceGUI {
             mainPanel.add(startPanel);
 
             startButton.addActionListener(e -> {
-                startRace();
+
+                startRace(passageLength, numPlayers, autocorrect, caffeineMode, nightMode, 
+                typingStyles, keyboardTypes, userColours, accessoriesList);
             });
 
             typistFrame.add(mainPanel);
@@ -208,7 +222,9 @@ public class TypingRaceGUI {
             typistFrame.setVisible(true);
         }
 
-        public static void startRace(){
+        public static void startRace(String passageLength, String numPlayers, String autocorrect, String caffeineMode, String nightMode, 
+         String[] typingStyles, String[] keyboardTypes, 
+        String[] userColours, String[] accessoriesList){
             JFrame raceFrame = new JFrame("Typing Race");
             raceFrame.setSize(400, 300);
             raceFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -224,8 +240,72 @@ public class TypingRaceGUI {
 
             raceFrame.add(mainPanel);
             raceFrame.setVisible(true);
+
+            int length = 0;
+            if (passageLength.equals("Short")){
+                length = 20;
+            } else if (passageLength.equals("Medium")){
+                length = 50;
+            } else if (passageLength.equals("Long")){
+                length = 100;
+            }
+
+            //Begin race
+
+            Typist seat1Typist;
+            Typist seat2Typist;
+            Typist seat3Typist;
+            Typist seat4Typist;
+            Typist seat5Typist;
+            Typist seat6Typist;
+
+            double MISTYPE_BASE_CHANCE = 0.3;
+            int SLIDE_BACK_AMOUNT   = 1;
+            int BURNOUT_DURATION = 3;
+
+            boolean finished = false;
+            int winner = -1;
+
+            Typist[] typists = new Typist[Integer.parseInt(numPlayers)];
+            TypingRace race = new TypingRace(length);
+            System.out.println(keyboardTypes[0]);     
+            for (int i = 0; i < Integer.parseInt(numPlayers); i++){
+                
+                Typist typist = new Typist(userColours[i].charAt(0), userColours[i], 0.5);
+                typists[i] = typist;
+                race.addTypist(typist, i + 1);
+
+            }
+
+            while (!finished){
+                
+                for (int j = 0; j < Integer.parseInt(numPlayers); j++){
+                    race.advanceTypist(typists[j]);
+                }
+                
+
+                
+                printRace();
+
+                
+                for (int k = 0; k < Integer.parseInt(numPlayers); k++){
+                    if (race.raceFinishedBy(typists[k])){
+                        finished = true;
+                        winner = k;
+                    }
+                }
+
+                try {
+                    TimeUnit.MILLISECONDS.sleep(200);
+                } catch (Exception e) {}
+            
+            }
+
         }
 
+        public static void printRace(){
+            System.out.println("");
+        }
 
         public static void main(String [] args){
             startRaceGUI();
