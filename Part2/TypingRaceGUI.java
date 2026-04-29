@@ -145,7 +145,6 @@ public class TypingRaceGUI {
 
 
             for (int i = 0; i < Integer.parseInt(numPlayers); i++){
-                System.out.println(i);
                 JPanel typistPanel = new JPanel();
                 typistPanel.setLayout(new GridBagLayout());
                 JLabel typistLabel = new JLabel("Typist " + (i + 1));
@@ -202,7 +201,6 @@ public class TypingRaceGUI {
 
             }
 
-            System.out.println(symbols[0]);
             
             //Start Button
             JPanel startPanel = new JPanel();
@@ -267,8 +265,7 @@ public class TypingRaceGUI {
             int winner = -1;
 
             Typist[] typists = new Typist[Integer.parseInt(numPlayers)];
-            TypingRace race = new TypingRace(length);
-            System.out.println(keyboardTypes[0]);     
+            TypingRace race = new TypingRace(length);   
             for (int i = 0; i < Integer.parseInt(numPlayers); i++){
                 
                 Typist typist = new Typist(userColours[i].charAt(0), userColours[i], 0.5);

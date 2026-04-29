@@ -1,4 +1,3 @@
-import Part1.Typist;
 import java.util.concurrent.TimeUnit;
 
 
