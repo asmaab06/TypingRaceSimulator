@@ -40,9 +40,9 @@ public class TypingRace
     public TypingRace(int passageLength)
     {
         this.passageLength = passageLength;
-        this.seat1Typist = null;
-        this.seat2Typist = null;
-        this.seat3Typist = null;
+        seat1Typist = null;
+        seat2Typist = null;
+        seat3Typist = null;
     }
 
     /**
@@ -298,19 +298,4 @@ public class TypingRace
             i = i + 1;
         }
     }
-
-    
-    public static void main (String []args){
-        TypingRace race = new TypingRace(20);
-        Typist typist1 = new Typist ('①', "TURBOFINGERS", 0.85);
-        Typist typist2 = new Typist ('②', "QWERTY_QUEEN", 0.60);
-        Typist typist3 = new Typist ('③', "HUNT_N_PECK", 0.40);
-
-        race.addTypist(typist1, 1);
-        race.addTypist(typist2, 2);
-        race.addTypist(typist3, 3);
-
-        race.startRace();
-    }
-    
 }
